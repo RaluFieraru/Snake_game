@@ -11,8 +11,6 @@ SNAKE_BODY = 3
 SNAKE_COLOR = "#36B35B"
 FOOD_COLOR = "#FF423C"
 
-
-
 class Snake:
     #Definim clasa Snake si constructorul
     def __init__(self):
