@@ -49,7 +49,18 @@ def next_turn(snake, food):
     snake.squares.insert(0, square)
 
     if x == food.coordinates[0] and y == food.coordinates[1]:
-        global score, SPEED_GAME
+        global score, SPEED_GAME, level
+        #modificam viteza in cazul in care sarpele atinge hrana
+        if level == "e" or level == "easy": #pentru level usor, viteza va scadea pana la 150
+            while SPEED_GAME <= 150:
+                SPEED_GAME -= 10
+        elif level == "n" or level == "normal": #pentru level normal, viteza va scadea pana la 100
+            while SPEED_GAME <= 100:
+                SPEED_GAME -= 20
+        elif level == "h" or level == "hard": #pentru level dificil, viteza va scadea fara sa aiba limita
+            SPEED_GAME -= 25
+        else:
+            SPEED_GAME -= 10 #pentru level random, viteza va scadea cu 10, fara limita
         score += 1 #modificam scorul in cazul in care sarpele atinge hrana
         SPEED_GAME -=10 #modificam viteza in cazul in care sarpele atinge hrana
         label.config(text="Score:{}".format(score))
@@ -100,6 +111,7 @@ def game_over():
     canvas.create_text(canvas.winfo_width()/2, canvas.winfo_height()/2, font=('consolas',70), text="GAME OVER", fill="red", tag="gameover")
 
 #se creaza fereastra de lucru
+level = input("Ce level doresti sa aiba jocul? Tasteaza easy/e, normal/n, hard/h sau random ") #se cere utilizatorului sa introduca nivelul cerut
 window = Tk()
 window.title("Snake game- FRAM")
 window.resizable(False, False)
